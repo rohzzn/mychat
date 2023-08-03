@@ -39,7 +39,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'djangomeet.urls'
+ROOT_URLCONF = 'mychat.urls'
 
 TEMPLATES = [
     {
@@ -57,7 +57,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'djangomeet.wsgi.application'
+WSGI_APPLICATION = 'mychat.wsgi.application'
 
 
 # Database
