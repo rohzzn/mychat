@@ -2,6 +2,5 @@ agora-token-builder==1.0.0
 asgiref==3.7.2
 Django==3.2.23
 python-dotenv==1.0.0
-sqlparse==0.4.4
-tzdata==2023.3
 whitenoise==6.5.0
+dj-database-url==2.1.0

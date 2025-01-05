@@ -2,6 +2,13 @@
     "version": 2,
     "builds": [
         {
+            "src": "build_files.sh",
+            "use": "@vercel/static-build",
+            "config": {
+                "distDir": "staticfiles"
+            }
+        },
+        {
             "src": "mychat/wsgi.py",
             "use": "@vercel/python",
             "config": {
@@ -12,11 +19,12 @@
     ],
     "routes": [
         {
+            "src": "/static/(.*)",
+            "dest": "/static/$1"
+        },
+        {
             "src": "/(.*)",
             "dest": "mychat/wsgi.py"
         }
-    ],
-    "env": {
-        "PYTHONPATH": "."
-    }
+    ]
 }

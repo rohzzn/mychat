@@ -1,15 +1,21 @@
-from pathlib import Path
 import os
+from pathlib import Path
 from dotenv import load_dotenv
 
 load_dotenv()
 
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'your-default-secret-key-here')
-DEBUG = os.getenv('DJANGO_DEBUG', 'False') == 'True'
-ALLOWED_HOSTS = ['*']
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-your-secret-key')
 
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = False
+
+ALLOWED_HOSTS = ['.vercel.app', '.now.sh', 'localhost', '127.0.0.1']
+
+# Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -51,10 +57,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'mychat.wsgi.application'
 
+# Database
+# Using SQLite for Vercel
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': ':memory:',  # Use in-memory database for Vercel
     }
 }
 
@@ -76,17 +84,22 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
-USE_L10N = True
 USE_TZ = True
 
+# Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
-]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Agora settings
 AGORA_APP_ID = os.getenv('AGORA_APP_ID')
 AGORA_APP_CERTIFICATE = os.getenv('AGORA_APP_CERTIFICATE')
+
+# Security settings
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SECURE_BROWSER_XSS_FILTER = True
